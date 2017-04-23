@@ -1,1 +1,12 @@
 language: rust
+sudo: true
+cache: cargo
+os:
+  - linux
+rust:
+  - nightly
+before_install:
+  - sudo apt-get install libzmq5
+script:
+  - cargo build --verbose
+  - cargo test --verbose
