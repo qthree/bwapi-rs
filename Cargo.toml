@@ -8,3 +8,7 @@ description = "Rust bindings to the Starcraft Broodwar game API"
 license = "Unlicense/MIT"
 
 [dependencies]
+zmq = "0.8"
+
+[dependencies.url]
+git = "https://github.com/servo/rust-url"
