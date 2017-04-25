@@ -1,12 +1,13 @@
 language: rust
-sudo: true
-cache: cargo
-os:
-  - linux
+cache:
+  apt: true
+  cargo: true
+dist: trusty
+sudo: false
+addons:
+  apt:
+    packages:
+    - libzmq3
+    - libzmq3-dev
 rust:
   - nightly
-before_install:
-  - sudo apt-get install libzmq5
-script:
-  - cargo build --verbose
-  - cargo test --verbose

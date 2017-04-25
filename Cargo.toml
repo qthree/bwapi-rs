@@ -7,8 +7,9 @@ repository = "https://github.com/RnDome/bwapi-rs"
 description = "Rust bindings to the Starcraft Broodwar game API"
 license = "Unlicense/MIT"
 
-[dependencies]
-zmq = "0.8"
+[dependencies.zmq]
+version = "0.8"
+default-features = false # disable zmq_has
 
 [dependencies.url]
 git = "https://github.com/servo/rust-url"
