@@ -154,10 +154,9 @@ impl Unit {
             return Err("n_orders size < 0");
         }
 
-        for _ in 0 .. n_orders {
-            let order = Order::parse_from(iter)?;
-            result.orders.push(order);
-        }
+        result.orders = (0 .. n_orders)
+            .map(|_| Order::parse_from(iter))
+            .collect::<Result<_,_>>()?;
 
         result.velocity = (read_float(iter)?, read_float(iter)?);
 
@@ -180,10 +179,9 @@ impl Action {
             return Err("action size < 0");
         }
 
-        result.action = Vec::with_capacity(size as usize);
-        for i in 0 .. size as usize {
-            result.action[i] = read_int(iter)?;
-        }
+        result.action = (0 .. size)
+            .map(|_| read_int(iter))
+            .collect::<Result<_,_>>()?;
 
         Ok(result)
     }
@@ -245,13 +243,11 @@ impl Frame {
                 return Err("n_units < 0");
             }
 
-            let mut units = Vec::new();
-            for _ in 0 .. n_units {
-                let unit = Unit::parse_from(data)?;
-                units.push(unit);
-            }
+            let units: Result<_,_> = (0 .. n_units)
+                .map(|_| Unit::parse_from(data))
+                .collect();
 
-            self.units.insert(id_player, units);
+            self.units.insert(id_player, units?);
         }
 
         Ok(())
@@ -271,13 +267,11 @@ impl Frame {
                 return Err("n_actions < 0");
             }
 
-            let mut actions = Vec::new();
-            for _ in 0 .. n_actions {
-                let unit = Action::parse_from(data)?;
-                actions.push(unit);
-            }
+            let actions: Result<_,_> = (0 .. n_actions)
+                .map(|_| Action::parse_from(data))
+                .collect();
 
-            self.actions.insert(id_player, actions);
+            self.actions.insert(id_player, actions?);
         }
 
         Ok(())
@@ -304,10 +298,9 @@ impl Frame {
             return Err("n_bullets < 0");
         }
 
-        for _ in 0 .. n_bullets {
-            let bullet = Bullet::parse_from(data)?;
-            self.bullets.push(bullet);
-        }
+        self.bullets = (0 .. n_bullets)
+            .map(|_| Bullet::parse_from(data))
+            .collect::<Result<_,_>>()?;
 
         Ok(())
     }

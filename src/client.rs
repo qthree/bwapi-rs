@@ -148,11 +148,11 @@ impl ServerState {
                 "deaths" => self.deaths = v[1 .. v.len()-1] // strip quotes
                     .split(',')
                     .filter(|e| e.len() > 0) // a,,b
-                    .map(|x| x.parse().unwrap_or(0))
-                    .collect(),
+                    .map(|x| x.parse().map_err(|_| "parse error"))
+                    .collect::<Result<_,_>>()?,
 
                 // TODO
-                _ => {}
+                _ => unimplemented!()
             }
 
         }
