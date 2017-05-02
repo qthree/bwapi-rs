@@ -8,4 +8,5 @@ description = "Rust bindings to the Starcraft Broodwar game API"
 license = "Unlicense/MIT"
 
 [dependencies]
+num = { version = "^0.1", default-features = false }
 typenum = "1.8.0"

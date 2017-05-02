@@ -1,3 +1,4 @@
+extern crate num;
 extern crate typenum;
 
 pub mod bwapi;
