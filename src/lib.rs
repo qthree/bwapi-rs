@@ -1,3 +1,7 @@
+extern crate typenum;
+
+pub mod bwapi;
+
 #[cfg(test)]
 mod tests {
     #[test]
