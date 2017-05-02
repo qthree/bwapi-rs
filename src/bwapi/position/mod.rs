@@ -10,7 +10,7 @@ use std::ops::Mul;
 use std::ops::Div;
 use std::ops::Rem;
 
-#[derive(Default)]
+#[derive(Default, Clone, Copy)]
 pub struct Point<T, S> {
     x: T,
     y: T,
@@ -27,10 +27,10 @@ impl<T: Num + NumCast + Copy, S> Point<T, S> {
     fn length(&self) -> f64 {
         (self.x * self.x + self.y * self.y).to_f64().unwrap().sqrt()
     }
-    /*
-    fn distance(&self, to: &Self) -> f64 {
+
+    fn distance(self, to: Self) -> f64 {
         (self - to).length()
-    }*/
+    }
 }
 
 impl<T: NumCast, S: Integer> Point<T, S> {
@@ -41,7 +41,8 @@ impl<T: NumCast, S: Integer> Point<T, S> {
 
 impl<T: Num + NumCast + Ord + Copy, S: Integer> Point<T, S> {
     fn from<F>(other: Point<T, F>) -> Self
-            where F: Integer, T: Mul<i32,Output=T> + Div<i32,Output=T> {
+            where F: Integer, T: Mul<i32,Output=T> + Div<i32,Output=T>
+    {
         let self_scale = Self::get_scale();
         let other_scale = Point::<T, F>::get_scale();
         if other_scale > self_scale {
