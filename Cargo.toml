@@ -8,7 +8,8 @@ description = "Rust bindings to the Starcraft Broodwar game API"
 license = "Unlicense/MIT"
 
 [dependencies]
-bwapi-sys = { path = "../bwapi-sys" }
+#bwapi-sys = { path = "../bwapi-sys" }
+bwapi-sys = {git="https://github.com/RnDome/bwapi-sys.git", branch="build_script"}
 
 [dev-dependencies]
 assert_approx_eq = "*"
