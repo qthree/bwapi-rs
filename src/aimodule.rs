@@ -156,3 +156,17 @@ pub unsafe extern "C" fn gameInit(game: *mut void) {
     GAME = game;
 }
 
+extern "Rust" {
+    fn start() -> Box<game::EventHandler>;
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub unsafe extern "C" fn newAIModule() -> *mut void {
+    println!("newAIModule called!");
+
+    let handler = start();
+    let result = wrap_handler(handler);
+
+    result
+}

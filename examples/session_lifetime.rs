@@ -128,14 +128,7 @@ impl<'g> EventHandler<'g> for Ai<'g> {
 }
 
 #[no_mangle]
-#[allow(non_snake_case)]
-pub unsafe extern "C" fn newAIModule() -> *mut void {
-    println!("newAIModule called!");
-
+pub extern "Rust" fn start() -> Box<EventHandler<'static>> {
     let handler = Ai { context: None };
-    let result = wrap_handler(Box::new(handler));
-
-    result
+    Box::new(handler)
 }
-
-
